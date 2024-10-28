@@ -35,14 +35,14 @@ public static class PostMaster
         }
         myObservers.Add(aMessageType, new List<IObserver>() { anObserver });
     }
-    public static void UnSubscribe(IObserver observer)
-    {
-        foreach (var observerList in myObservers.Values)
-        {
-            if (observerList.Contains(observer))
-            {
-                observerList.Remove(observer);
-            }
-        }
-    }
+    //public static void UnSubscribe(IObserver observer) //Never ended up using this but keeping the logic here
+    //{
+    //    foreach (var observerList in myObservers.Values)
+    //    {
+    //        if (observerList.Contains(observer))
+    //        {
+    //            observerList.Remove(observer);
+    //        }
+    //    }
+    //}
 }

@@ -23,8 +23,6 @@ public class BulletManager
         bullet.SetBulletSpeed(myBulletSpeed);
         Vector3 bulletPosition = myBulletSpawnTransform.position + (myBulletSpawnTransform.up * myBulletOffset);
         bullet.SetPositionAndRotation(bulletPosition, myBulletSpawnTransform.rotation);
-        PostMaster.UnSubscribe(bullet);
-        PostMaster.AddSubscriber(bullet, PostMasterMessage.MessageType.eBulletCollision);
 
     }
 }

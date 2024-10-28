@@ -9,6 +9,10 @@ public class Bullet : MonoBehaviour, IPoolObject, IObserver
     private Vector3 myDirection;
     private float mySpeed;
     private float myLifeTime;
+    public Bullet()
+    {
+        PostMaster.AddSubscriber(this, PostMasterMessage.MessageType.eBulletCollision);
+    }
     public GameObject GameObject => gameObject;
     public bool IsBeingUsed()
     {
