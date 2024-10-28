@@ -14,7 +14,7 @@ public class EnemyManager : MonoBehaviour, IObserver
     private void Start()
     {
         Invoke("AddEnemyPool", 0.5f);//I need to give the ascyn time to load
-        Invoke("EnemiesSetup", 1.0f);//I should probably check the ascyn handle message for when done
+        Invoke("EnemiesSetup", 1.0f);//I should check the ascyn handle message for when done
     }
     public void Init(PoolManager aEnemyManager, int anAmountOfEnemies, int anEnemySpeed)
     {
@@ -28,7 +28,7 @@ public class EnemyManager : MonoBehaviour, IObserver
     }
     private void AddEnemyPool()
     {
-        myEnemyPool.AddPoolObjectBuffer(myAmountOfEnemies - 1); //-1 because my pooling always assure 1 object
+        myEnemyPool.AddPoolObjectBuffer(myAmountOfEnemies - 1); //-1 because my pooling assure 1 object
     }
     private void Restart()
     {

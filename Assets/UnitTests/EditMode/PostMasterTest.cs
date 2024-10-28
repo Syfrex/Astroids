@@ -30,8 +30,8 @@ public class PostMasterTest
         PostMaster.AddSubscriber(bullet, PostMasterMessage.MessageType.ePlayerDied);
         PostMasterMessage.Message msgBullet;
         msgBullet.subscriber = me;
-        msgBullet.type = PostMasterMessage.MessageType.ePlayerCollision;
-        bool recievedMessage = bullet.ReciveMessage(msgBullet); //if it return false, set true
+        msgBullet.type = PostMasterMessage.MessageType.ePlayerCollision; //Send a message I don't subscribe to
+        bool recievedMessage = bullet.ReciveMessage(msgBullet);
         Assert.IsFalse(recievedMessage);
     }
 }
