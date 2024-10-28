@@ -14,9 +14,10 @@ public class Bullet : MonoBehaviour, IPoolObject, IObserver
     {
         return myIsBeingUsed;
     }
-    public void ActivateObject(bool anActive)
+    public void ActivateObject()
     {
-        myIsBeingUsed = anActive;
+        myIsBeingUsed = true;
+        GameObject.SetActive(true);
     }
     public void Update()
     {
@@ -35,7 +36,6 @@ public class Bullet : MonoBehaviour, IPoolObject, IObserver
     {
         myDirection = aDirection;
     }
-
     public void SetBulletSpeed(float aSpeed)
     {
         mySpeed = aSpeed;
@@ -53,24 +53,16 @@ public class Bullet : MonoBehaviour, IPoolObject, IObserver
     public void DeactivateObject()
     {
         //PostMaster.UnSubscribe(this);  - known bug
-        ActivateObject(false);
+        myIsBeingUsed = false;
         GameObject.SetActive(false);
     }
-    public bool ReciveMessage(Message aMessage)
+    public bool ReciveMessage(PostMasterMessage.Message aMessage)
     {
         switch (aMessage.type)
         {
-            case MessageType.ePlayerCollision:
-                break;
-            case MessageType.eBulletCollision:
+            case PostMasterMessage.MessageType.eBulletCollision:
                 DeactivateObject();
                 return true;
-            case MessageType.ePlayerDied:
-                break;
-            case MessageType.eWaveCleared:
-                break;
-            default:
-                break;
         }
         return false;
     }

@@ -49,4 +49,8 @@ public class PlayerMovement
     {
         myPlayerTransform.Rotate(new Vector3(0, 0, -1 * myRotationSpeed));
     }
+    public void Reset()
+    {
+        myAcceleration = 0;
+    }
 }

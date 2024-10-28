@@ -37,6 +37,16 @@ public class PoolManager : MonoBehaviour
     {
         myAsyncHandle.Completed += AsyncHandle_Completed;
     }
+    public void ReturnAllObjects()
+    {
+        for (int i = 0; i < myPoolObjects.Count; i++)
+        {
+            if (myPoolObjects[i].IsBeingUsed())
+            {
+                myPoolObjects[i].DeactivateObject();
+            }
+        }
+    }
     public IPoolObject GetAFreeObject()
     {
         int index = 0;
@@ -45,8 +55,7 @@ public class PoolManager : MonoBehaviour
             if (!myPoolObjects[i].IsBeingUsed())
             {
                 index = i;
-                myPoolObjects[i].GameObject.SetActive(true);
-                myPoolObjects[i].ActivateObject(true);
+                myPoolObjects[i].ActivateObject();
                 if (i == myPoolObjects.Count - 1) //If we asked for the last object in the pool we give it time to spawn a new
                 {
                     AddPoolObject();

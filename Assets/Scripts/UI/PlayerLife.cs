@@ -8,45 +8,53 @@ public class PlayerLife : MonoBehaviour, IObserver
 {
     private Image[] myLife;
     private int myLifeCount = 0;
+    private int myStartLife;
     private void Start()
     {
-        PostMaster.AddSubscriber(this, MessageType.ePlayerCollision);
+        PostMaster.AddSubscriber(this, PostMasterMessage.MessageType.ePlayerCollision);
+        PostMaster.AddSubscriber(this, PostMasterMessage.MessageType.eRestart);
     }
     public void Init(Image[] images)
     {
         myLife = images;
         myLifeCount = myLife.Length;
+        myStartLife = myLifeCount;
     }
-    public bool ReciveMessage(Message aMessage)
+    public bool ReciveMessage(PostMasterMessage.Message aMessage)
     {
         switch (aMessage.type)
         {
-            case MessageType.ePlayerCollision:
-                HandleMessage();
+            case PostMasterMessage.MessageType.ePlayerCollision:
+                PlayerCollidedMessage();
                 return true;
-            case MessageType.eBulletCollision:
-                break;
-            case MessageType.ePlayerDied:
-                break;
-            case MessageType.eWaveCleared:
-                break;
+            case PostMasterMessage.MessageType.eRestart:
+                Restart();
+                return true;
             default:
                 break;
         }
         return false;
     }
-    private void HandleMessage() 
+    private void PlayerCollidedMessage() 
     {
         myLifeCount--;
         myLife[myLifeCount].enabled = false;
         if (myLifeCount <= 0)
         {
-            Message msg;
+            PostMasterMessage.Message msg;
             msg.subscriber = null;
-            msg.type = MessageType.ePlayerDied;
-           
+            msg.type = PostMasterMessage.MessageType.ePlayerDied;
             PostMaster.SendMessage(msg);
-
+            msg.type = PostMasterMessage.MessageType.eRestart;
+            PostMaster.SendMessage(msg);
+        }
+    }
+    private void Restart()
+    {
+        myLifeCount = myStartLife;
+        for (int i = 0; i < myLifeCount; i++) 
+        {
+            myLife[i].enabled = true;   
         }
     }
 

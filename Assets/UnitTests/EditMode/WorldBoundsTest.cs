@@ -14,7 +14,7 @@ public class WorldBoundsTest
         GameObject world = new GameObject();
         Global.WorldBounds.SetMinMax(new Vector3(-10, -10, 0), new Vector3(10, 10, 0));
         WorldBounds worldBounds = world.AddComponent<WorldBounds>();
-
+         
         worldBounds.SetToWorldBounds();
         Global.AddWorldBoundObject(player);
         player.SetPosition(new Vector3(11, -10, 0));

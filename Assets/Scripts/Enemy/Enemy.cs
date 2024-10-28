@@ -16,15 +16,15 @@ public class Enemy : MonoBehaviour, IPoolObject, IWorldBoundObject
     {
         return myIsBeingUsed;
     }
-    public void ActivateObject(bool anActive)
+    public void ActivateObject()
     {
-        myIsBeingUsed = anActive;
+        myIsBeingUsed = true;
+        GameObject.SetActive(true);
     }
     public void Update()
     {
         transform.position += myDirection * Time.deltaTime * mySpeed;
     }
-
     public void SetDirection(Vector3 aDirection)
     {
         myDirection = aDirection;
@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour, IPoolObject, IWorldBoundObject
     }
     public void DeactivateObject()
     {
-        ActivateObject(false);
+        myIsBeingUsed = false;
         GameObject.SetActive(false);
     }
     public void SetPosition(Vector3 aPosition)
@@ -57,11 +57,11 @@ public class Enemy : MonoBehaviour, IPoolObject, IWorldBoundObject
     }
     private void OnTriggerEnter2D(Collider2D aCollider) //this is not what I wanted to do (created my own collsion-checker that bloated the entire project)
     {
-        Message msg = new Message();
+        PostMasterMessage.Message msg;
         msg.subscriber = gameObject;
         if (aCollider.gameObject.GetComponent<Bullet>())
         {
-            msg.type = MessageType.eBulletCollision;
+            msg.type = PostMasterMessage.MessageType.eBulletCollision;
             if (aCollider.gameObject.GetComponent<Bullet>().IsBeingUsed())
             {
                 PostMaster.SendMessage(msg);
@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour, IPoolObject, IWorldBoundObject
         }
         if (aCollider.gameObject.GetComponent<Player>())
         {
-            msg.type = MessageType.ePlayerCollision;
+            msg.type = PostMasterMessage.MessageType.ePlayerCollision;
             PostMaster.SendMessage(msg);
         }
     }

@@ -21,10 +21,10 @@ public class PlayerTests
     {
         GameObject me = new GameObject();
         Player player = me.AddComponent<Player>();
-        PostMaster.AddSubscriber(player, MessageType.ePlayerDied);
-        Message msgPlayerDead;
+        PostMaster.AddSubscriber(player, PostMasterMessage.MessageType.ePlayerDied);
+        PostMasterMessage.Message msgPlayerDead;
         msgPlayerDead.subscriber = me;
-        msgPlayerDead.type = MessageType.ePlayerDied;
+        msgPlayerDead.type = PostMasterMessage.MessageType.ePlayerDied;
         player.ReciveMessage(msgPlayerDead);
         bool isAlive = me.gameObject.activeSelf;
         Assert.IsFalse(isAlive);

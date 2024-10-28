@@ -10,28 +10,30 @@ public class ScoreText : MonoBehaviour, IObserver
     private int myScore;
     private void Start()
     {
-        PostMaster.AddSubscriber(this, MessageType.eBulletCollision);
-        PostMaster.AddSubscriber(this, MessageType.eWaveCleared);
+        PostMaster.AddSubscriber(this, PostMasterMessage.MessageType.eBulletCollision);
+        PostMaster.AddSubscriber(this, PostMasterMessage.MessageType.eWaveCleared);
+        PostMaster.AddSubscriber(this, PostMasterMessage.MessageType.eRestart);
         myScore = 0;
     }
     public void Init(TextMeshProUGUI aText)
     {
         myText = aText;
     }
-    public bool ReciveMessage(Message aMessage)
+    public bool ReciveMessage(PostMasterMessage.Message aMessage)
     {
         switch (aMessage.type)
         {
-            case MessageType.ePlayerCollision:
-                break;
-            case MessageType.eBulletCollision:
+            case PostMasterMessage.MessageType.eRestart:
+                myScore = 0;
+                myText.SetText(myScore.ToString());
+                return true;
+            case PostMasterMessage.MessageType.eBulletCollision:
                 myScore += 10;
                 myText.SetText(myScore.ToString());
                 return true;
-            case MessageType.ePlayerDied:
-                break;
-            case MessageType.eWaveCleared:
+            case PostMasterMessage.MessageType.eWaveCleared:
                 myScore += 100;
+                myText.SetText(myScore.ToString());
                 return true;
             default:
                 break;

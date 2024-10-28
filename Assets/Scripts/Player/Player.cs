@@ -26,7 +26,8 @@ public class Player : MonoBehaviour, IWorldBoundObject, IObserver
     {
         myStats = aPlayerStats;
         myBulletManager = new BulletManager(aBulletPool, myStats.bulletSpeed, transform);
-        PostMaster.AddSubscriber(this, MessageType.ePlayerDied);
+        PostMaster.AddSubscriber(this, PostMasterMessage.MessageType.ePlayerDied);
+        PostMaster.AddSubscriber(this, PostMasterMessage.MessageType.eRestart);
     }
     void Start()
     {
@@ -75,19 +76,19 @@ public class Player : MonoBehaviour, IWorldBoundObject, IObserver
     {
         Global.AddWorldBoundObject(this);
     }
-    public bool ReciveMessage(Message aMessage)
+    public bool ReciveMessage(PostMasterMessage.Message aMessage)
     {
         switch (aMessage.type)
         {
-            case MessageType.ePlayerCollision:
-                break;
-            case MessageType.eBulletCollision:
-                break;
-            case MessageType.ePlayerDied:
+            case PostMasterMessage.MessageType.eRestart:
+                gameObject.SetActive(true);
+                SetPosition(new Vector3(0,0,0)); //Idealy save start position and spawn player there
+                myPlayerMovement.Reset();
+                return true;
+            case PostMasterMessage.MessageType.ePlayerDied:
                 gameObject.SetActive(false);
                 return true;
-            case MessageType.eWaveCleared:
-                break;
+
             default:
                 break;
         }

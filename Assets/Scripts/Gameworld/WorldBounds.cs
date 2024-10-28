@@ -8,13 +8,18 @@ public class WorldBounds : MonoBehaviour
     private Bounds myBounds;
     void Awake()
     {
+        Camera camera = Camera.main;
+        float aspectRatio = camera.pixelWidth / (camera.pixelHeight);
+        float height = camera.orthographicSize * 2;
+        float width = aspectRatio * camera.orthographicSize * 2;
+        float minX = camera.transform.position.x - (width / 2);
+        float maxX = camera.transform.position.x + (width / 2);
+        float minY = camera.transform.position.y - (height/ 2);
+        float maxY = camera.transform.position.y + (height/ 2);
         Bounds bounds = GetComponent<SpriteRenderer>().bounds;
-        float minX = bounds.min.x - bounds.center.x;
-        float maxX = bounds.max.x + bounds.center.x;
-        float minY = bounds.min.y - bounds.center.y;
-        float maxY = bounds.max.y + bounds.center.y;
+        bounds.SetMinMax(new Vector3(minX,minY,0), new Vector3(maxX,maxY,1));
         myBounds = new Bounds();
-        myBounds.SetMinMax(new Vector3(minX, minY, 0), new Vector3(maxX, maxY, 0));
+        myBounds = bounds;
         Global.WorldBounds = myBounds;
         Global.WorldBoundObjects.Clear();
     }

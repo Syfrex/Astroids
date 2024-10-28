@@ -453,6 +453,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 446071533}
     - target: {fileID: 9022384922617919114, guid: 35b84118c02df7a40be4d0ca6ccac706, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022384922617919114, guid: 35b84118c02df7a40be4d0ca6ccac706, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022384922617919114, guid: 35b84118c02df7a40be4d0ca6ccac706, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -562,6 +570,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 896543076515380369, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -198
+      objectReference: {fileID: 0}
+    - target: {fileID: 896543076515380369, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 191.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258577682549808542, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -196
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258577682549808542, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 231
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002983261929036915, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002983261929036915, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002983261929036915, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 800
+      objectReference: {fileID: 0}
     - target: {fileID: 3906282821329417456, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
       propertyPath: m_Name
       value: Canvas

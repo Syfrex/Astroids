@@ -4,22 +4,11 @@ using UnityEditor;
 using UnityEditor.VersionControl;
 using UnityEngine;
 
-public enum MessageType
-{
-    ePlayerCollision,
-    eBulletCollision,
-    ePlayerDied,
-    eWaveCleared
-}
-public struct Message
-{
-    public MessageType type;
-    public GameObject subscriber;
-}
+
 public static class PostMaster
 {
-    private static Dictionary<MessageType, List<IObserver>> myObservers = new Dictionary<MessageType, List<IObserver>>();
-    public static void SendMessage(Message aMessage)
+    private static Dictionary<PostMasterMessage.MessageType, List<IObserver>> myObservers = new Dictionary<PostMasterMessage.MessageType, List<IObserver>>();
+    public static void SendMessage(PostMasterMessage.Message aMessage)
     {
         //Debug.Log(message.type);
         foreach (var msgType in myObservers)
@@ -34,7 +23,7 @@ public static class PostMaster
             }
         }
     }
-    public static void AddSubscriber(IObserver anObserver, MessageType aMessageType)
+    public static void AddSubscriber(IObserver anObserver, PostMasterMessage.MessageType aMessageType)
     {
         foreach (var msgType in myObservers)
         {
@@ -46,14 +35,14 @@ public static class PostMaster
         }
         myObservers.Add(aMessageType, new List<IObserver>() { anObserver });
     }
-    //public static void UnSubscribe(IObserver observer)
-    //{
-    //    foreach (var observerList in myObservers.Values)
-    //    {
-    //        if (observerList.Contains(observer))
-    //        {
-    //            observerList.Remove(observer);
-    //        }
-    //    }
-    //}
+    public static void UnSubscribe(IObserver observer)
+    {
+        foreach (var observerList in myObservers.Values)
+        {
+            if (observerList.Contains(observer))
+            {
+                observerList.Remove(observer);
+            }
+        }
+    }
 }

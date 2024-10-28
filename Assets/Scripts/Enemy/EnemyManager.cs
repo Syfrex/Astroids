@@ -23,30 +23,18 @@ public class EnemyManager : MonoBehaviour, IObserver
         myEnemySpeed = anEnemySpeed;
         myEnemiesKilled = 0;
         myWave = 1;
-        PostMaster.AddSubscriber(this, MessageType.eBulletCollision);
+        PostMaster.AddSubscriber(this, PostMasterMessage.MessageType.eBulletCollision);
+        PostMaster.AddSubscriber(this, PostMasterMessage.MessageType.eRestart);
     }
-    public bool ReciveMessage(Message aMessage)
-    {
-        switch (aMessage.type)
-        {
-            case MessageType.ePlayerCollision:
-                break;
-            case MessageType.eBulletCollision:
-                HandleMessage(aMessage);
-                return true;
-            case MessageType.ePlayerDied:
-                break;
-            case MessageType.eWaveCleared:
-                break;
-            default:
-                break;
-        }
-        return false;
-    }
- 
     private void AddEnemyPool()
     {
         myEnemyPool.AddPoolObjectBuffer(myAmountOfEnemies - 1); //-1 because my pooling always assure 1 object
+    }
+    private void Restart()
+    {
+        myAmountOfEnemies /= myWave;
+        myEnemyPool.ReturnAllObjects();
+        NewWave();
     }
     private void EnemiesSetup()
     {
@@ -94,14 +82,14 @@ public class EnemyManager : MonoBehaviour, IObserver
         EnemiesSetup();
     }
 
-    private void HandleMessage(Message aMessage)
+    private void EnemyCollision(PostMasterMessage.Message aMessage)
     {
         myEnemiesKilled++;
         if (myEnemiesKilled >= myAmountOfEnemies * 7 * myWave) //hardcoded: 1 becomes 2 becomes 4 so once 7 is dead, 1 original enemy is killed
         {
-            Message msg;
+            PostMasterMessage.Message msg;
             msg.subscriber = gameObject;
-            msg.type = MessageType.eWaveCleared;
+            msg.type = PostMasterMessage.MessageType.eWaveCleared;
             PostMaster.SendMessage(msg);
             myAmountOfEnemies *= 2;
             NewWave();
@@ -134,5 +122,20 @@ public class EnemyManager : MonoBehaviour, IObserver
             enemy.SetDirection(newDirection.normalized);
             enemy.SetEnemySpeed(myEnemySpeed * 1.2f);
         }
+    }
+    public bool ReciveMessage(PostMasterMessage.Message aMessage)
+    {
+        switch (aMessage.type)
+        {
+            case PostMasterMessage.MessageType.eRestart:
+                Restart();
+                return true;
+            case PostMasterMessage.MessageType.eBulletCollision:
+                EnemyCollision(aMessage);
+                return true;
+            default:
+                break;
+        }
+        return false;
     }
 }

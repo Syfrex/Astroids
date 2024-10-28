@@ -5,7 +5,7 @@ public interface IPoolObject
 {
     public GameObject GameObject { get; }
     public bool IsBeingUsed();
-    public void ActivateObject(bool anActive);
+    public void ActivateObject();
     public void Update();
     public void SetDirection(Vector3 aDirection);
     public void DeactivateObject();

@@ -12,10 +12,10 @@ public class PostMasterTest
     {
         GameObject me = new GameObject();
         Bullet bullet = me.AddComponent<Bullet>();
-        PostMaster.AddSubscriber(bullet, MessageType.eBulletCollision);
-        Message msgBullet;
+        PostMaster.AddSubscriber(bullet, PostMasterMessage.MessageType.eBulletCollision);
+        PostMasterMessage.Message msgBullet;
         msgBullet.subscriber = me;
-        msgBullet.type = MessageType.eBulletCollision;
+        msgBullet.type = PostMasterMessage.MessageType.eBulletCollision;
         bool recievedMessage = bullet.ReciveMessage(msgBullet);
         Assert.IsTrue(recievedMessage);
     }
@@ -25,12 +25,12 @@ public class PostMasterTest
     {
         GameObject me = new GameObject();
         Bullet bullet = me.AddComponent<Bullet>();
-        PostMaster.AddSubscriber(bullet, MessageType.eBulletCollision);
-        PostMaster.AddSubscriber(bullet, MessageType.eWaveCleared);
-        PostMaster.AddSubscriber(bullet, MessageType.ePlayerDied);
-        Message msgBullet;
+        PostMaster.AddSubscriber(bullet, PostMasterMessage.MessageType.eBulletCollision);
+        PostMaster.AddSubscriber(bullet, PostMasterMessage.MessageType.eWaveCleared);
+        PostMaster.AddSubscriber(bullet, PostMasterMessage.MessageType.ePlayerDied);
+        PostMasterMessage.Message msgBullet;
         msgBullet.subscriber = me;
-        msgBullet.type = MessageType.ePlayerCollision;
+        msgBullet.type = PostMasterMessage.MessageType.ePlayerCollision;
         bool recievedMessage = bullet.ReciveMessage(msgBullet); //if it return false, set true
         Assert.IsFalse(recievedMessage);
     }

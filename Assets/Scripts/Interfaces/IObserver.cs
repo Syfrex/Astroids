@@ -7,5 +7,5 @@ public enum ObserverType
 }
 public interface IObserver
 {
-    public bool ReciveMessage(Message aMessage);
+    public bool ReciveMessage(PostMasterMessage.Message aMessage);
 }

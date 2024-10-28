@@ -10,7 +10,8 @@ public class WaveCountdown : MonoBehaviour, IObserver
     private int myCountdown;
     private void Start()
     {
-        PostMaster.AddSubscriber(this, MessageType.eWaveCleared);
+
+        PostMaster.AddSubscriber(this, PostMasterMessage.MessageType.eWaveCleared);
         myCountdown = 3;
     }
     public void Init(TextMeshProUGUI aText, Transform anUIButton)
@@ -18,17 +19,11 @@ public class WaveCountdown : MonoBehaviour, IObserver
         myText = aText;
         myUIButton = anUIButton;
     }
-    public bool ReciveMessage(Message aMessage)
+    public bool ReciveMessage(PostMasterMessage.Message aMessage)
     {
         switch (aMessage.type)
         {
-            case MessageType.ePlayerCollision:
-                break;
-            case MessageType.eBulletCollision:
-                break;
-            case MessageType.ePlayerDied:
-                break;
-            case MessageType.eWaveCleared:
+            case PostMasterMessage.MessageType.eWaveCleared:
                 myUIButton.parent.gameObject.SetActive(true);
                 myText.SetText(myCountdown.ToString());
                 StartCoroutine("NextWave");
