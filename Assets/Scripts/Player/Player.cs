@@ -21,6 +21,7 @@ public class Player : MonoBehaviour, IWorldBoundObject, IObserver
     private PlayerMovement myPlayerMovement;
     private BulletManager myBulletManager;
     private float myShootCooldown;
+    InputKey myPlayKey;
 
     public void Init(PoolManager aBulletPool, PlayerStats aPlayerStats)
     {
@@ -31,9 +32,11 @@ public class Player : MonoBehaviour, IWorldBoundObject, IObserver
     }
     void Start()
     {
+        myPlayKey = new InputKey(KeyCode.Escape);
         AddMyselfToWorldObjects();
         myController = new PlayerController(KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D, KeyCode.Space);
         myPlayerMovement = new PlayerMovement(this.transform, myStats.rotationSpeed, myStats.maxMovementSpeed, myStats.speed);
+
         myShootCooldown = 0;
     }
     void Update()
@@ -58,6 +61,13 @@ public class Player : MonoBehaviour, IWorldBoundObject, IObserver
         {
             myShootCooldown = myStats.maxShootCooldown;
             myBulletManager.ShootBullet();
+        }
+        if(myPlayKey.IsKeyBeingPressed())
+        {
+            PostMasterMessage.Message msg;
+            msg.subscriber = gameObject;
+            msg.type = PostMasterMessage.MessageType.ePause;
+            PostMaster.SendMessage(msg);
         }
         myPlayerMovement.UpdateMovement();
         _ = myShootCooldown > 0.0f ? myShootCooldown -= Time.deltaTime : myShootCooldown = 0;

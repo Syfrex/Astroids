@@ -56,7 +56,6 @@ public class Bullet : MonoBehaviour, IPoolObject, IObserver
     }
     public void DeactivateObject()
     {
-        //PostMaster.UnSubscribe(this);  - known bug
         myIsBeingUsed = false;
         GameObject.SetActive(false);
     }

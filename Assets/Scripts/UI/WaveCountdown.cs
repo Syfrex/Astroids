@@ -26,6 +26,7 @@ public class WaveCountdown : MonoBehaviour, IObserver
             case PostMasterMessage.MessageType.eWaveCleared:
                 myUIButton.parent.gameObject.SetActive(true);
                 myText.SetText(myCountdown.ToString());
+                myCountdown = 3;
                 StartCoroutine("NextWave");
                 return true;
             default:

@@ -10,6 +10,7 @@ public static class PostMasterMessage
         eBulletCollision,
         ePlayerDied,
         eWaveCleared,
+        ePause,
         eRestart
     }
     public struct Message

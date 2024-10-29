@@ -2,38 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartScript : MonoBehaviour, IObserver
+public class PauseGame : IObserver
 {
-    InputKey playKey;
-    void Start()
+    private bool myIsPaused = true;
+    public PauseGame() 
     {
-        PauseStart();
+        PostMaster.AddSubscriber(this, PostMasterMessage.MessageType.ePause);
         PostMaster.AddSubscriber(this, PostMasterMessage.MessageType.eRestart);
     }
-    void PauseStart()
+    private void Pause()
     {
-        playKey = new InputKey(KeyCode.Return);
-        Time.timeScale = 0.0f;
-    }
-    void Update()
-    {
-        if (playKey.IsKeyBeingPressed())
+        myIsPaused = !myIsPaused;
+        if (myIsPaused == true)
+        {
+            Time.timeScale = 0.0f;
+        }
+        else
         {
             Time.timeScale = 1.0f;
-            gameObject.SetActive(false);
         }
-    }
+    } 
     public bool ReciveMessage(PostMasterMessage.Message aMessage)
     {
         switch (aMessage.type)
         {
             case PostMasterMessage.MessageType.eRestart:
-                PauseStart();
-                gameObject.SetActive(true);
+                Pause();
+                return true;
+            case PostMasterMessage.MessageType.ePause:
+                Pause();
                 return true;
             default:
                 break;
         }
         return false;
     }
+
 }

@@ -25,6 +25,8 @@ public class Gameworld : MonoBehaviour
     [SerializeField] private TextMeshProUGUI countdownText;
     [SerializeField] private Transform waveCountdownTransform;
     [SerializeField] private WaveCountdown waveCountdown;
+    
+    private PauseGame myPauser;
 
     void Start()
     {
@@ -39,5 +41,7 @@ public class Gameworld : MonoBehaviour
         scoreText.Init(scoreText.GetComponent<TextMeshProUGUI>());
         playerLife.Init(playerLifeImages);
         waveCountdown.Init(countdownText, waveCountdownTransform);
+        myPauser = new PauseGame(); // this should not belong here. I didn't want it to be monobehaviour
+
     }
 }

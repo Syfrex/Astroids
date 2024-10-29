@@ -33,6 +33,8 @@ public class EnemyManager : MonoBehaviour, IObserver
     private void Restart()
     {
         myAmountOfEnemies /= myWave;
+        myWave = 0;
+        myEnemiesKilled = 0;
         myEnemyPool.ReturnAllObjects();
         NewWave();
     }
@@ -85,13 +87,15 @@ public class EnemyManager : MonoBehaviour, IObserver
     private void EnemyCollision(PostMasterMessage.Message aMessage)
     {
         myEnemiesKilled++;
-        if (myEnemiesKilled >= myAmountOfEnemies * 7 * myWave) //hardcoded: 1 becomes 2 becomes 4 so once 7 is dead, 1 original enemy is killed
+        int killWave = myAmountOfEnemies * 7;//hardcoded: 1 becomes 2 becomes 4 so once 7 is dead, 1 original enemy is killed
+        if (myEnemiesKilled >= killWave) 
         {
             PostMasterMessage.Message msg;
             msg.subscriber = gameObject;
             msg.type = PostMasterMessage.MessageType.eWaveCleared;
             PostMaster.SendMessage(msg);
             myAmountOfEnemies *= 2;
+            myEnemiesKilled = 0;
             NewWave();
         }
         Enemy enemy = aMessage.subscriber.GetComponent<Enemy>();
@@ -111,14 +115,14 @@ public class EnemyManager : MonoBehaviour, IObserver
     private void SplitEnemy(Vector3 aPosition, Vector3 aDirection, Vector3 aScale)
     {
         myEnemyPool.AddPoolObject();
-        int[] leftOrRight = { 1, -1 };
+        int[] leftAndRight = { 1, -1 };
         for (int i = 0; i < 2; i++)
         {
             Enemy enemy = (Enemy)myEnemyPool.GetAFreeObject();
             enemy.GameObject.transform.localScale = aScale;
             enemy.GameObject.transform.localScale -= Vector3.one;
             enemy.SetPosition(aPosition);
-            Vector3 newDirection = aDirection + (enemy.gameObject.transform.right * leftOrRight[i]);
+            Vector3 newDirection = aDirection + (enemy.gameObject.transform.right * leftAndRight[i]);
             enemy.SetDirection(newDirection.normalized);
             enemy.SetEnemySpeed(myEnemySpeed * 1.2f);
         }
