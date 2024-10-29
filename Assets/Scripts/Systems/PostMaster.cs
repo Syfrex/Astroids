@@ -10,7 +10,6 @@ public static class PostMaster
     private static Dictionary<PostMasterMessage.MessageType, List<IObserver>> myObservers = new Dictionary<PostMasterMessage.MessageType, List<IObserver>>();
     public static void SendMessage(PostMasterMessage.Message aMessage)
     {
-        //Debug.Log(message.type);
         foreach (var msgType in myObservers)
         {
             if (msgType.Key ==  aMessage.type)

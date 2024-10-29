@@ -572,15 +572,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 896543076515380369, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -198
+      value: -314.3
       objectReference: {fileID: 0}
     - target: {fileID: 896543076515380369, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 191.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1618683493029053170, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
+      propertyPath: m_text
+      value: '''w'' - thrust forward
+
+        ''s''  - thrust backward
+
+        ''a'' 
+        - rotate left
+
+        ''d''  - rotate right
+
+        ''space'' - shoot
+
+        ''Esc''
+        - pause'
+      objectReference: {fileID: 0}
     - target: {fileID: 2258577682549808542, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -196
+      value: -312.3
       objectReference: {fileID: 0}
     - target: {fileID: 2258577682549808542, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -601,6 +617,16 @@ PrefabInstance:
     - target: {fileID: 3906282821329417456, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3906282821329417456, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8780146901039221022, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
+      propertyPath: m_text
+      value: 'Press ''Esc'' to start
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 8962094776299358466, guid: 8fe9dd8f812f3114894f0821252fe085, type: 3}
       propertyPath: m_Pivot.x
