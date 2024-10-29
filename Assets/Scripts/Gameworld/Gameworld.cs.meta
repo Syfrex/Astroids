@@ -1,2 +1,18 @@
 fileFormatVersion: 2
 guid: 8de3e9352ae2b1d408438a638cf47998
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - player: {fileID: 5346793917976762861, guid: c7230373dfe40ad4a93df9223821a172, type: 3}
+  - enemyManager: {instanceID: 0}
+  - scoreText: {instanceID: 0}
+  - playerLife: {instanceID: 0}
+  - countdownText: {instanceID: 0}
+  - waveCountdownTransform: {instanceID: 0}
+  - waveCountdown: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
